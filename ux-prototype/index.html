@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sundae Volatility - UX Prototype</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Main Game Container -->
+    <div class="game-container">
+
+        <!-- Header: Shop Status & Timer -->
+        <header class="game-header">
+            <div class="shop-info">
+                <h1>🍦 Grandpa's Ice Cream Shop</h1>
+                <div class="foreclosure-timer">
+                    <span class="timer-label">Days Until Foreclosure:</span>
+                    <span class="timer-value" id="daysRemaining">90</span>
+                </div>
+            </div>
+            <div class="capital-display">
+                <div class="capital-label">Capital</div>
+                <div class="capital-value" id="capital">$10,000</div>
+            </div>
+        </header>
+
+        <!-- Main Game Area: 3-Column Layout -->
+        <main class="game-main">
+
+            <!-- LEFT COLUMN: Market Data & Prices -->
+            <section class="market-panel">
+                <h2>Market Prices</h2>
+
+                <!-- Ice Cream Flavors -->
+                <div class="flavors-grid">
+                    <div class="flavor-card vanilla">
+                        <div class="flavor-header">
+                            <span class="flavor-icon">🍦</span>
+                            <span class="flavor-name">Vanilla</span>
+                        </div>
+                        <div class="flavor-price">$2.50</div>
+                        <div class="flavor-change positive">+$0.05 (2.0%)</div>
+                        <div class="flavor-stats">
+                            <span>Vol: 35%</span>
+                            <span class="flavor-trend">📈</span>
+                        </div>
+                    </div>
+
+                    <div class="flavor-card chocolate">
+                        <div class="flavor-header">
+                            <span class="flavor-icon">🍫</span>
+                            <span class="flavor-name">Chocolate</span>
+                        </div>
+                        <div class="flavor-price">$2.80</div>
+                        <div class="flavor-change negative">-$0.12 (4.1%)</div>
+                        <div class="flavor-stats">
+                            <span>Vol: 50%</span>
+                            <span class="flavor-trend">📉</span>
+                        </div>
+                    </div>
+
+                    <div class="flavor-card strawberry">
+                        <div class="flavor-header">
+                            <span class="flavor-icon">🍓</span>
+                            <span class="flavor-name">Strawberry</span>
+                        </div>
+                        <div class="flavor-price">$2.20</div>
+                        <div class="flavor-change neutral">$0.00 (0.0%)</div>
+                        <div class="flavor-stats">
+                            <span>Vol: 25%</span>
+                            <span class="flavor-trend">→</span>
+                        </div>
+                    </div>
+
+                    <div class="flavor-card mint-chip locked">
+                        <div class="flavor-header">
+                            <span class="flavor-icon">🌿</span>
+                            <span class="flavor-name">Mint Chip</span>
+                        </div>
+                        <div class="locked-overlay">
+                            <div class="lock-icon">🔒</div>
+                            <div class="unlock-text">Unlock: Day 30</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Weather & Market News -->
+                <div class="market-news">
+                    <h3>📰 Market News</h3>
+                    <div class="news-feed">
+                        <div class="news-item">
+                            <span class="news-time">10:42 AM</span>
+                            <p>☀️ Sunny weather forecast increases Vanilla demand</p>
+                        </div>
+                        <div class="news-item">
+                            <span class="news-time">9:15 AM</span>
+                            <p>🚢 Shipping delays affect Chocolate supply chain</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CENTER COLUMN: Trading Interface -->
+            <section class="trading-panel">
+                <h2>Trading Desk</h2>
+
+                <!-- Instrument Selector -->
+                <div class="instrument-selector">
+                    <button class="instrument-tab active" data-instrument="forwards">Forwards</button>
+                    <button class="instrument-tab" data-instrument="calls">Calls</button>
+                    <button class="instrument-tab locked" data-instrument="puts">
+                        Puts <span class="lock-badge">🔒</span>
+                    </button>
+                    <button class="instrument-tab locked" data-instrument="futures">
+                        Futures <span class="lock-badge">🔒</span>
+                    </button>
+                </div>
+
+                <!-- Trading Form -->
+                <div class="trading-form">
+                    <div class="form-group">
+                        <label for="underlying">Underlying</label>
+                        <select id="underlying" class="form-control">
+                            <option value="vanilla">🍦 Vanilla ($2.50)</option>
+                            <option value="chocolate">🍫 Chocolate ($2.80)</option>
+                            <option value="strawberry">🍓 Strawberry ($2.20)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="strike">Strike Price</label>
+                            <input type="number" id="strike" class="form-control" value="2.50" step="0.10">
+                        </div>
+                        <div class="form-group">
+                            <label for="maturity">Maturity (Days)</label>
+                            <input type="number" id="maturity" class="form-control" value="30" min="1" max="90">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="position">Position</label>
+                        <div class="position-toggle">
+                            <button class="position-btn active" data-position="buy">Buy (Long)</button>
+                            <button class="position-btn" data-position="sell">Sell (Short)</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quantity">Quantity (contracts)</label>
+                        <input type="number" id="quantity" class="form-control" value="1" min="1">
+                    </div>
+
+                    <!-- Option Pricing (only visible for options) -->
+                    <div class="pricing-display">
+                        <div class="pricing-item">
+                            <span class="pricing-label">Premium:</span>
+                            <span class="pricing-value" id="premium">$0.35</span>
+                        </div>
+                        <div class="pricing-item">
+                            <span class="pricing-label">Total Cost:</span>
+                            <span class="pricing-value total" id="totalCost">$0.35</span>
+                        </div>
+                    </div>
+
+                    <!-- Greeks Display (locked initially) -->
+                    <div class="greeks-display locked">
+                        <div class="greeks-header">
+                            <span>📊 The Greeks</span>
+                            <button class="unlock-btn">Unlock Delta - $800</button>
+                        </div>
+                        <div class="greeks-locked-overlay">
+                            <p>Purchase Greeks to see advanced analytics</p>
+                        </div>
+                    </div>
+
+                    <!-- Trade Button -->
+                    <button class="btn-trade" id="executeTrade">
+                        Execute Trade
+                    </button>
+                </div>
+
+                <!-- Recent Trades -->
+                <div class="recent-trades">
+                    <h3>Recent Trades</h3>
+                    <div class="trades-list" id="tradesList">
+                        <div class="trade-item profit">
+                            <div class="trade-header">
+                                <span>🍦 Vanilla Call</span>
+                                <span class="trade-pnl">+$42.50</span>
+                            </div>
+                            <div class="trade-details">
+                                Strike: $2.50 | Expired: Profitable
+                            </div>
+                        </div>
+                        <div class="trade-item loss">
+                            <div class="trade-header">
+                                <span>🍫 Chocolate Forward</span>
+                                <span class="trade-pnl">-$15.20</span>
+                            </div>
+                            <div class="trade-details">
+                                Strike: $2.90 | Expired: Loss
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RIGHT COLUMN: Portfolio & Knowledge -->
+            <section class="portfolio-panel">
+                <h2>Portfolio</h2>
+
+                <!-- Active Positions -->
+                <div class="active-positions">
+                    <h3>Active Positions</h3>
+                    <div class="positions-list">
+                        <div class="position-item">
+                            <div class="position-header">
+                                <span class="position-type">CALL</span>
+                                <span class="position-underlying">🍦 Vanilla</span>
+                            </div>
+                            <div class="position-details">
+                                <div class="detail-row">
+                                    <span>Strike:</span>
+                                    <span>$2.50</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span>Expires:</span>
+                                    <span>15 days</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span>Cost:</span>
+                                    <span>$35.00</span>
+                                </div>
+                                <div class="detail-row highlight">
+                                    <span>Value:</span>
+                                    <span class="positive">$42.50</span>
+                                </div>
+                            </div>
+                            <button class="btn-close-position">Close Position</button>
+                        </div>
+
+                        <div class="position-item">
+                            <div class="position-header">
+                                <span class="position-type">FWD</span>
+                                <span class="position-underlying">🍫 Chocolate</span>
+                            </div>
+                            <div class="position-details">
+                                <div class="detail-row">
+                                    <span>Strike:</span>
+                                    <span>$2.80</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span>Expires:</span>
+                                    <span>7 days</span>
+                                </div>
+                                <div class="detail-row highlight">
+                                    <span>Value:</span>
+                                    <span class="negative">-$8.00</span>
+                                </div>
+                            </div>
+                            <button class="btn-close-position">Close Position</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Knowledge Store -->
+                <div class="knowledge-store">
+                    <h3>🧠 Knowledge Store</h3>
+                    <p class="store-description">Invest in understanding to unlock new capabilities</p>
+
+                    <div class="knowledge-items">
+                        <div class="knowledge-item">
+                            <div class="knowledge-header">
+                                <span class="knowledge-icon">Δ</span>
+                                <span class="knowledge-name">Delta</span>
+                            </div>
+                            <div class="knowledge-description">
+                                See how positions move with underlying price
+                            </div>
+                            <div class="knowledge-footer">
+                                <span class="knowledge-price">$800</span>
+                                <button class="btn-purchase">Purchase</button>
+                            </div>
+                        </div>
+
+                        <div class="knowledge-item locked">
+                            <div class="knowledge-header">
+                                <span class="knowledge-icon">Γ</span>
+                                <span class="knowledge-name">Gamma</span>
+                            </div>
+                            <div class="knowledge-description">
+                                Understand delta acceleration
+                            </div>
+                            <div class="knowledge-footer">
+                                <span class="knowledge-price">$3,000</span>
+                                <button class="btn-purchase" disabled>Requires Delta</button>
+                            </div>
+                        </div>
+
+                        <div class="knowledge-item locked">
+                            <div class="knowledge-header">
+                                <span class="knowledge-icon">ν</span>
+                                <span class="knowledge-name">Vega</span>
+                            </div>
+                            <div class="knowledge-description">
+                                Measure volatility sensitivity
+                            </div>
+                            <div class="knowledge-footer">
+                                <span class="knowledge-price">$15,000</span>
+                                <button class="btn-purchase" disabled>Requires Gamma</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Achievements/Milestones -->
+                <div class="achievements">
+                    <h3>🏆 Milestones</h3>
+                    <div class="achievement-list">
+                        <div class="achievement completed">
+                            <span class="achievement-icon">✓</span>
+                            <span class="achievement-text">First Trade</span>
+                        </div>
+                        <div class="achievement completed">
+                            <span class="achievement-icon">✓</span>
+                            <span class="achievement-text">10 Trades</span>
+                        </div>
+                        <div class="achievement locked">
+                            <span class="achievement-icon">🔒</span>
+                            <span class="achievement-text">First Profitable Week</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer: Game Controls -->
+        <footer class="game-footer">
+            <button class="footer-btn" id="saveGame">💾 Save</button>
+            <button class="footer-btn" id="settings">⚙️ Settings</button>
+            <button class="footer-btn" id="help">❓ Help</button>
+            <div class="game-speed">
+                <label>Speed:</label>
+                <button class="speed-btn" data-speed="1">1x</button>
+                <button class="speed-btn active" data-speed="2">2x</button>
+                <button class="speed-btn" data-speed="5">5x</button>
+            </div>
+        </footer>
+    </div>
+
+    <script src="js/prototype.js"></script>
+</body>
+</html>

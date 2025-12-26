@@ -40,6 +40,31 @@ An incremental game that teaches financial derivatives pricing through engaging 
 
 ---
 
+## 🎨 Try the UX Prototype
+
+**Want to see the game interface right now?**
+
+```bash
+# Open the interactive prototype
+open ux-prototype/index.html
+
+# Or view with a local server
+cd ux-prototype
+python3 -m http.server 8000
+# Then visit: http://localhost:8000
+```
+
+**Features:**
+- ✅ Fully interactive trading interface
+- ✅ Live market prices with random walk simulation
+- ✅ Complete game layout (3-column design)
+- ✅ Responsive mobile/tablet/desktop views
+- ✅ Perfect for UX testing with Chrome DevTools
+
+📖 **[Read the UX Prototype Guide](ux-prototype/QUICKSTART.md)** - Learn how to use Chrome DevTools for live design editing!
+
+---
+
 ## 🚀 Quick Start
 
 ```bash
