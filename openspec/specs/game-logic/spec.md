@@ -22,9 +22,9 @@ The system SHALL gate financial tools (Greeks) behind capital milestones.
 - **THEN** the Delta tool becomes available for purchase.
 
 ### Requirement: Market Hours and Seasonal Effects
-The market SHALL simulate seasonal effects on demand and price dynamics based on a weather model.
+The market SHALL simulate seasonal effects on demand and price dynamics for all four primary flavors (Vanilla, Chocolate, Strawberry, Mint-Chip) based on a weather model.
 
 #### Scenario: High Temperature Forecast
 - **WHEN** the weather forecast predicts higher temperatures
-- **THEN** demand for ice cream flavors increases, impacting price dynamics.
+- **THEN** demand for ice cream flavors increases, impacting price dynamics across the available assets.
 

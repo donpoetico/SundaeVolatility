@@ -22,9 +22,9 @@ The core engine SHALL calculate Delta, Gamma, Theta, Vega, and Rho for active po
 - **THEN** Delta is calculated to show price sensitivity.
 
 ### Requirement: Stochastic Market Simulation
-The core engine SHALL update flavor prices using a mean-reverting stochastic process with seasonal components.
+The core engine SHALL update flavor prices using a mean-reverting stochastic process (Ornstein-Uhlenbeck for baseline, Geometric Brownian Motion for trends) with seasonal components and Merton Jump Diffusion as defined in §10 of the Unified Specification.
 
 #### Scenario: Daily Price Update
 - **WHEN** the market day is advanced
-- **THEN** prices for all flavors are updated according to their volatility, mean reversion speed, and seasonal amplitude.
+- **THEN** prices for all flavors are updated according to their specific volatility, mean reversion speed, and seasonal amplitude parameters defined in the flavor-specific configurations.
 
