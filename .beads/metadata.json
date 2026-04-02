@@ -1,6 +1,7 @@
 {
   "database": "dolt",
   "backend": "dolt",
-  "dolt_mode": "server",
-  "dolt_database": "SundaeVolatility"
+  "dolt_mode": "embedded",
+  "dolt_database": "SundaeVolatility",
+  "project_id": "b68efb12-fbbb-4cb7-9b45-6bad3869f789"
 }

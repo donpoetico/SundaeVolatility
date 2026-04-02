@@ -30,3 +30,8 @@ npm-debug.log*
 # wai
 .wai/projects/**/.state
 .wai/projects/**/.reflect-meta
+
+# Beads / Dolt files (added by bd init)
+.dolt/
+*.db
+.beads-credential-key
