@@ -1,0 +1,25 @@
+# Sundae Volatility
+
+> Educational derivatives pricing game with incremental mechanics.
+
+## Core Architecture
+- **Three-Layer Architecture**: Core engine, Game logic, UI.
+- **Language**: TypeScript (Strict Mode).
+- **State Management**: Zustand (with persistence).
+- **UI**: Vanilla DOM + CSS (minimal prototype).
+- **Math Engine**: Black-Scholes pricing and Greeks.
+
+## Development Principles
+- **Diegetic Metaphor**: Options are "promises," Greeks are "tools."
+- **Invisible Simulation**: Finance terminology hidden from player.
+- **TDD Mandatory**: All logic must be verified by tests.
+
+## Key Files
+- `SUNDAE_VOLATILITY_UNIFIED_SPEC_v3_4.md`: Complete game specification.
+- `src/contracts/agentContracts.ts`: Agent interface contracts.
+- `src/store/gameStore.ts`: Global state management.
+- `src/core/pricing/`: Pricing engine and Greeks.
+
+## Agent Skills
+- `rule-of-5-universal`: Review and quality assurance.
+- `commit`: Atomic, meaningful git commits.

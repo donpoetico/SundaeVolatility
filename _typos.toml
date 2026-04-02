@@ -1,0 +1,9 @@
+[default]
+extend-ignore-re = [
+    "(?i)Black-Scholes",
+    "(?i)Zustand",
+    "(?i)PixiJS",
+    "(?i)Vitest",
+    "(?i)Vite",
+    "(?i)PWA"
+]
