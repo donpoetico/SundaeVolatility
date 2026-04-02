@@ -15,16 +15,51 @@ The core engine SHALL implement the Black-Scholes model for European option pric
 - **THEN** the pricing engine returns the intrinsic value (max(0, spot - strike) for calls).
 
 ### Requirement: Greeks Calculation
-The core engine SHALL calculate Delta, Gamma, Theta, Vega, and Rho for active positions.
+The core engine SHALL calculate Delta, Gamma, Theta, Vega, and Rho for active positions and the aggregate portfolio.
 
-#### Scenario: Delta Calculation
-- **WHEN** spot price is $2.50 and other parameters are fixed
-- **THEN** Delta is calculated to show price sensitivity.
+#### Scenario: Portfolio Vega
+- **WHEN** multiple options are held for different flavors
+- **THEN** an aggregate Vega is calculated to show portfolio sensitivity to market-wide volatility shifts.
 
-### Requirement: Stochastic Market Simulation
-The core engine SHALL update flavor prices using a mean-reverting stochastic process (Ornstein-Uhlenbeck for baseline, Geometric Brownian Motion for trends) with seasonal components and Merton Jump Diffusion as defined in §10 of the Unified Specification.
+### Requirement: GBM Price Path
+The core engine SHALL implement a Geometric Brownian Motion (GBM) model for base random price walks with configurable drift and volatility.
 
-#### Scenario: Daily Price Update
-- **WHEN** the market day is advanced
-- **THEN** prices for all flavors are updated according to their specific volatility, mean reversion speed, and seasonal amplitude parameters defined in the flavor-specific configurations.
+#### Scenario: Random Walk
+- **WHEN** the simulation ticks
+- **THEN** the asset price is updated using the GBM formula with current mu and sigma.
+
+### Requirement: Mean-Reverting Drift (O-U)
+The core engine SHALL implement an Ornstein-Uhlenbeck (O-U) process to pull prices toward a seasonal baseline.
+
+#### Scenario: Reversion to Baseline
+- **WHEN** the asset price is far from the seasonal baseline
+- **THEN** the price is adjusted toward the baseline with configurable reversion speed and strength.
+
+### Requirement: Seasonal Price Modification
+The core engine SHALL implement a sinusoidal seasonal drift modifier.
+
+#### Scenario: Seasonal Peak
+- **WHEN** the current day matches the asset's seasonal phase
+- **THEN** the price receives its maximum seasonal amplitude adjustment.
+
+### Requirement: Merton Jump Diffusion
+The core engine SHALL implement Poisson-distributed price jumps for extreme market events.
+
+#### Scenario: Price Jump
+- **WHEN** the Poisson arrival rate triggers a jump
+- **THEN** the price is adjusted by a log-normal jump size.
+
+### Requirement: Monte Carlo Scenario Generation
+The core engine SHALL generate N configurable paths (default 1000) for forward-looking analysis of contract outcomes.
+
+#### Scenario: Profit/Loss Distribution
+- **WHEN** the player runs a scenario on a deal slip
+- **THEN** the engine returns p5, p95, mean, and max loss/gain statistics.
+
+### Requirement: Detailed Agent Parameters
+The engine SHALL model market counterparties using behavioral parameters: Risk Tolerance, Price Sensitivity, Information Quality, and Max Counter-Offer Delta.
+
+#### Scenario: Zosia's Information Edge
+- **WHEN** Zosia proposes a deal
+- **THEN** her Information Quality (0.65) informs the strike price relative to the internal GBM drift.
 

@@ -1,8 +1,7 @@
-# ui-diegetic Specification
+# Capability: UI Diegetic
 
-## Purpose
-Defines the diegetic user interface philosophy, scene architecture, and spatial navigation flow, ensuring all game information is embedded within the physical shop environment.
-## Requirements
+## ADDED Requirements
+
 ### Requirement: Zero-HUD Principle
 The interface SHALL be entirely diegetic, with all information presented through physical objects within the game world (register, slips, instruments).
 
@@ -23,14 +22,3 @@ The game SHALL use a fixed, slightly elevated front-facing perspective that repr
 #### Scenario: View the counter
 - **WHEN** in the shop scene
 - **THEN** the counter occupies the lower third, the window the upper half, and interactive zones the sides.
-
-### Requirement: Audio-Visual Redundancy Mapping
-The interface SHALL provide redundant visual indicators for all information-bearing sound events.
-- **Door Bell frequency** → Foot-traffic indicator on the window.
-- **Register Pitch** → Tinted color flash on the mechanical display.
-- **Barometer Hiss** → Red zone color and needle trembling.
-
-#### Scenario: Silent Mode Play
-- **WHEN** audio is muted
-- **THEN** a player can still identify a high-margin sale by observing the green tint on the cash register.
-

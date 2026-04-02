@@ -17,3 +17,10 @@ The system SHALL enforce strict performance budgets for core operations.
 - **WHEN** calculating an option price
 - **THEN** the operation must complete in less than 1ms.
 
+### Requirement: Agent Interface Parameters
+The `MathAgent` interface SHALL expose methods for per-contract Greeks, Portfolio Greeks, and Monte Carlo statistics.
+
+#### Scenario: Greeks Query
+- **WHEN** a tool is attached to a slip
+- **THEN** the UI queries the MathAgent for the contract's specific Greeks (Delta, Gamma, Vega).
+
