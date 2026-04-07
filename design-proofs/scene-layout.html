@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sundae Volatility — Scene Layout Wireframe</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Georgia', serif; background: #1a1a1a; color: #e0d8c8; padding: 2rem; }
+  h1 { font-size: 1.8rem; margin-bottom: 0.5rem; color: #FFE082; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 1rem; color: #D4A855; border-bottom: 1px solid #3a3228; padding-bottom: 0.5rem; }
+  p.note { font-size: 0.85rem; color: #8a7e6a; margin-bottom: 1.5rem; font-style: italic; }
+  p.label { font-size: 0.85rem; color: #B8860B; margin-bottom: 1rem; }
+
+  .scene-container {
+    position: relative;
+    width: 960px; height: 540px;
+    border: 2px solid #3a3228;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    font-size: 0.7rem;
+  }
+
+  /* Layers */
+  .layer-bg {
+    position: absolute; top: 0; left: 0; right: 0; height: 50%;
+    background: linear-gradient(180deg, #78909C 0%, #B0BEC5 60%, #CFD8DC 100%);
+  }
+  .layer-mid {
+    position: absolute; top: 50%; left: 0; right: 0; height: 17%;
+    background: #DEB887;
+    border-top: 3px solid #8B6914;
+    border-bottom: 2px solid #A67C2E;
+  }
+  .layer-fg {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 33%;
+    background: linear-gradient(180deg, #A67C2E 0%, #8B6914 30%, #5C3D1A 100%);
+    border-top: 4px solid #D4A855;
+  }
+
+  /* Zone overlays */
+  .zone {
+    position: absolute;
+    border: 2px dashed rgba(255,213,79,0.6);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    color: #FFD54F;
+    font-weight: bold;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+    text-align: center;
+    line-height: 1.3;
+  }
+  .zone-label {
+    position: absolute; bottom: 4px; right: 6px;
+    font-size: 0.55rem; color: rgba(255,213,79,0.7);
+    font-style: italic;
+  }
+
+  /* Window elements */
+  .window-frame {
+    position: absolute; top: 2%; left: 5%; right: 5%; height: 46%;
+    border: 6px solid #5C3D1A;
+    border-radius: 4px;
+    background: rgba(176,190,197,0.2);
+  }
+  .window-mullion-v {
+    position: absolute; top: 0; bottom: 0; left: 50%; width: 4px;
+    background: #5C3D1A;
+  }
+  .window-mullion-h {
+    position: absolute; left: 0; right: 0; top: 50%; height: 4px;
+    background: #5C3D1A;
+  }
+
+  /* Midground objects */
+  .obj {
+    position: absolute;
+    background: rgba(0,0,0,0.25);
+    border: 2px solid rgba(255,253,208,0.4);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    color: #FFFDD0;
+    font-size: 0.65rem;
+    text-align: center;
+    padding: 4px;
+  }
+  .obj-interactive {
+    border-color: #FFD54F;
+    background: rgba(184,134,11,0.25);
+    box-shadow: 0 0 8px rgba(255,213,79,0.3);
+  }
+
+  /* Dimension annotations */
+  .dim {
+    position: absolute;
+    color: #FF8F00;
+    font-size: 0.6rem;
+    font-family: monospace;
+  }
+  .dim-line {
+    position: absolute;
+    background: #FF8F00;
+  }
+
+  /* Customer silhouettes */
+  .customer {
+    position: absolute;
+    border-radius: 50% 50% 40% 40%;
+    opacity: 0.5;
+    border: 2px dashed rgba(255,255,255,0.4);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.7);
+    font-size: 0.6rem;
+    text-align: center;
+  }
+
+  /* Tabs for scene switching */
+  .tabs {
+    display: flex; gap: 0.5rem; margin-bottom: 1rem;
+  }
+  .tab {
+    padding: 0.5rem 1.5rem; border-radius: 6px 6px 0 0;
+    background: #2a2520; color: #8a7e6a; cursor: pointer;
+    border: 1px solid #3a3228; border-bottom: none;
+    font-family: Georgia, serif; font-size: 0.85rem;
+  }
+  .tab.active { background: #3a3228; color: #FFE082; }
+
+  .scene { display: none; }
+  .scene.active { display: block; }
+
+  /* Day 1 variants */
+  .dimmed { opacity: 0.3; filter: grayscale(0.5); }
+
+  /* Progress states */
+  .progress-row {
+    display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem;
+  }
+  .progress-card {
+    flex: 1; min-width: 200px; background: #2a2520; border-radius: 8px;
+    padding: 1rem; border: 1px solid #3a3228;
+  }
+  .progress-card h4 { color: #FFE082; font-size: 0.85rem; margin-bottom: 0.5rem; }
+  .progress-card ul { font-size: 0.75rem; color: #b8a88a; padding-left: 1rem; }
+  .progress-card li { margin-bottom: 4px; }
+  .progress-card .visible { color: #4CAF50; }
+  .progress-card .hidden { color: #EF5350; text-decoration: line-through; opacity: 0.5; }
+</style>
+</head>
+<body>
+
+<h1>Sundae Volatility — Scene Layout Wireframe</h1>
+<p class="note">Wireframe at 960x540 (half of 1920x1080). All proportions match the spec: counter ~33%, midground ~17%, window ~50%.</p>
+
+<div class="tabs">
+  <div class="tab active" onclick="showScene('full')">Full Shop (Day 40+)</div>
+  <div class="tab" onclick="showScene('day1')">Day 1 (Bare)</div>
+  <div class="tab" onclick="showScene('backroom')">Back Room</div>
+</div>
+
+<!-- FULL SHOP SCENE -->
+<div class="scene active" id="scene-full">
+<p class="label">Shop Scene — Full state (all elements revealed)</p>
+<div class="scene-container">
+  <!-- Background layer (50%) -->
+  <div class="layer-bg">
+    <!-- Window frame -->
+    <div class="window-frame">
+      <div class="window-mullion-v"></div>
+      <div class="window-mullion-h"></div>
+
+      <!-- Street elements -->
+      <div class="zone" style="bottom:8px; left:10%; width:25%; height:30px; border-color:rgba(255,255,255,0.3); color:rgba(255,255,255,0.5);">Street / Pedestrians</div>
+      <div class="zone" style="bottom:8px; right:10%; width:20%; height:50px; border-color:rgba(255,255,255,0.3); color:rgba(255,255,255,0.5);">Nadia's Shop<br>+ A-frame sign</div>
+      <div class="zone" style="top:8px; left:10%; right:10%; height:35%; border-color:rgba(255,255,255,0.2); color:rgba(255,255,255,0.3);">Sky / Weather / Clouds</div>
+    </div>
+
+    <!-- Customer positions -->
+    <div class="customer" style="bottom:10px; left:42%; width:80px; height:100px; background:rgba(205,133,63,0.3);">PRIMARY<br>customer</div>
+    <div class="customer" style="bottom:10px; left:20%; width:60px; height:90px; background:rgba(205,133,63,0.2);">SECONDARY<br>(waiting)</div>
+    <div class="customer" style="bottom:10px; right:15%; width:40px; height:80px; background:rgba(205,133,63,0.15);">TERTIARY<br>(partial)</div>
+  </div>
+
+  <!-- Midground layer (17%) -->
+  <div class="layer-mid">
+    <!-- Ingredient shelf -->
+    <div class="obj obj-interactive" style="left:3%; top:10%; width:22%; height:80%;">
+      <div>SHELF<br>[V] [C] [S] [M]<br>4 ingredient slots</div>
+    </div>
+
+    <!-- Clock -->
+    <div class="obj" style="left:30%; top:15%; width:8%; height:45%;">Clock</div>
+
+    <!-- Doorway -->
+    <div class="obj obj-interactive" style="left:42%; top:5%; width:14%; height:90%;">
+      Doorway<br>→ Back Room
+    </div>
+
+    <!-- Corkboard -->
+    <div class="obj obj-interactive" style="right:3%; top:5%; width:30%; height:90%;">
+      CORKBOARD<br>3x4 grid (Act 3)<br>[deal slips]<br>─────────<br>[standing orders]
+    </div>
+  </div>
+
+  <!-- Foreground layer (33%) -->
+  <div class="layer-fg">
+    <!-- Register zone -->
+    <div class="obj obj-interactive" style="left:3%; top:12%; width:15%; height:55%;">
+      REGISTER<br>$$$<br><span style="font-size:0.5rem;">+ pause bell</span>
+    </div>
+
+    <!-- Serving area -->
+    <div class="obj obj-interactive" style="left:22%; top:15%; width:18%; height:45%;">
+      SERVING AREA<br>scoop handoff
+    </div>
+
+    <!-- Interaction zone -->
+    <div class="zone" style="left:42%; top:10%; width:25%; height:55%; border-color:rgba(255,143,0,0.5);">
+      INTERACTION ZONE<br>deal slips / negotiation
+      <div class="zone-label">newspaper when empty</div>
+    </div>
+
+    <!-- Utility zone -->
+    <div class="obj" style="right:3%; top:15%; width:18%; height:45%;">
+      UTILITY<br>newspaper<br>(overflow)
+    </div>
+
+    <!-- Counter edge label -->
+    <div style="position:absolute; bottom:8px; left:50%; transform:translateX(-50%); color:#D4A855; font-size:0.6rem; letter-spacing:2px;">
+      ── C O U N T E R ──
+    </div>
+  </div>
+
+  <!-- Dimension annotations -->
+  <div class="dim" style="right:-55px; top:24%; transform:rotate(90deg);">← 50% window →</div>
+  <div class="dim" style="right:-50px; top:57%;">← 17% →</div>
+  <div class="dim" style="right:-55px; bottom:12%; transform:rotate(90deg);">← 33% counter →</div>
+</div>
+</div>
+
+<!-- DAY 1 SCENE -->
+<div class="scene" id="scene-day1">
+<p class="label">Day 1 — Bare Minimum (only vanilla active, no corkboard, no newspaper, no doorway)</p>
+<div class="scene-container">
+  <div class="layer-bg">
+    <div class="window-frame">
+      <div class="window-mullion-v"></div>
+      <div class="window-mullion-h"></div>
+      <div class="zone" style="top:8px; left:10%; right:10%; height:35%; border-color:rgba(255,255,255,0.2); color:rgba(255,255,255,0.3);">Sky — gray morning</div>
+      <div class="zone" style="bottom:8px; left:10%; width:25%; height:30px; border-color:rgba(255,255,255,0.2); color:rgba(255,255,255,0.3);">Quiet street, 1 pedestrian</div>
+    </div>
+    <div class="customer" style="bottom:10px; left:42%; width:80px; height:100px; background:rgba(205,133,63,0.3);">MARTA<br>(only customer)</div>
+  </div>
+
+  <div class="layer-mid">
+    <!-- Only vanilla is lit -->
+    <div class="obj obj-interactive" style="left:3%; top:10%; width:6%; height:80%;">V</div>
+    <div class="obj dimmed" style="left:10%; top:10%; width:6%; height:80%;">C</div>
+    <div class="obj dimmed" style="left:17%; top:10%; width:6%; height:80%;">S</div>
+    <div class="obj dimmed" style="left:24%; top:10%; width:6%; height:80%;">M</div>
+
+    <!-- No corkboard, no doorway, no clock -->
+    <div style="position:absolute; right:10%; top:30%; color:rgba(255,253,208,0.25); font-size:0.65rem; font-style:italic;">
+      (blank wall — no corkboard yet)
+    </div>
+    <div style="position:absolute; left:42%; top:30%; color:rgba(255,253,208,0.25); font-size:0.65rem; font-style:italic;">
+      (no doorway yet)
+    </div>
+  </div>
+
+  <div class="layer-fg">
+    <div class="obj obj-interactive" style="left:3%; top:12%; width:15%; height:55%;">
+      REGISTER<br>$2,000
+    </div>
+    <div class="obj obj-interactive" style="left:22%; top:15%; width:18%; height:45%;">
+      SERVING AREA
+    </div>
+    <!-- No newspaper yet -->
+    <div style="position:absolute; right:20%; top:35%; color:rgba(255,253,208,0.25); font-size:0.65rem; font-style:italic;">
+      (no newspaper yet)
+    </div>
+    <div style="position:absolute; bottom:8px; left:50%; transform:translateX(-50%); color:#D4A855; font-size:0.6rem; letter-spacing:2px;">
+      ── C O U N T E R ──
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- BACK ROOM SCENE -->
+<div class="scene" id="scene-backroom">
+<p class="label">Back Room — Full state (all objects revealed)</p>
+<div class="scene-container" style="background:#3E2723;">
+  <!-- Back wall -->
+  <div style="position:absolute; top:0; left:0; right:0; height:45%; background: linear-gradient(180deg, #2E1B0E 0%, #3E2723 100%); border-bottom: 3px solid #5C3D1A;">
+    <!-- Barometer -->
+    <div class="obj obj-interactive" style="left:5%; top:15%; width:15%; height:70%;">
+      BAROMETER<br>🟢🟡🔴<br>(wall-mounted)
+    </div>
+    <!-- Supplier board -->
+    <div class="obj obj-interactive" style="right:5%; top:10%; width:25%; height:75%;">
+      SUPPLIER BOARD<br>cards, price lists<br>(wall-mounted)
+    </div>
+  </div>
+
+  <!-- Floor area -->
+  <div style="position:absolute; top:45%; left:0; right:0; bottom:0; background: linear-gradient(180deg, #5C3D1A 0%, #3E2723 100%);">
+    <!-- Aging rack -->
+    <div class="obj" style="left:3%; top:10%; width:18%; height:65%;">
+      AGING RACK<br>premium ingredients<br>(left wall)
+    </div>
+
+    <!-- Grandfather's desk (dominant) -->
+    <div class="obj obj-interactive" style="left:28%; top:5%; width:50%; height:75%; border-width:3px;">
+      <div style="text-align:center;">
+        GRANDFATHER'S DESK<br>(2.5x scale, dominant piece)<br><br>
+        <span style="font-size:0.6rem;">
+        [tool tray] &nbsp;&nbsp; [JOURNAL] &nbsp;&nbsp; [calculator]<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Rho Dial]
+        </span>
+      </div>
+    </div>
+
+    <!-- Desk lamp glow effect -->
+    <div style="position:absolute; left:45%; top:-20px; width:100px; height:100px; background: radial-gradient(circle, rgba(255,213,79,0.15) 0%, transparent 70%); pointer-events:none;"></div>
+
+    <!-- Doorway back -->
+    <div class="obj obj-interactive" style="left:3%; bottom:5%; width:12%; height:30%;">
+      ← Shop<br>(doorway)
+    </div>
+  </div>
+
+  <!-- Atmosphere: dust motes hint -->
+  <div style="position:absolute; top:20%; left:50%; color:rgba(255,213,79,0.2); font-size:0.6rem; font-style:italic; transform:rotate(-5deg);">
+    ~ dust motes in lamp light ~
+  </div>
+</div>
+</div>
+
+<h2>Progressive Disclosure States</h2>
+<div class="progress-row">
+  <div class="progress-card">
+    <h4>Day 1</h4>
+    <ul>
+      <li class="visible">Counter + register ($2,000)</li>
+      <li class="visible">Window (gray morning)</li>
+      <li class="visible">Vanilla container (lit)</li>
+      <li class="hidden">Chocolate (dimmed)</li>
+      <li class="hidden">Strawberry (dimmed)</li>
+      <li class="hidden">Mint chip (dimmed)</li>
+      <li class="hidden">Newspaper</li>
+      <li class="hidden">Corkboard</li>
+      <li class="hidden">Back room doorway</li>
+      <li class="hidden">Clock</li>
+    </ul>
+  </div>
+  <div class="progress-card">
+    <h4>Days 2-12</h4>
+    <ul>
+      <li class="visible">+ Newspaper (slides under door)</li>
+      <li class="visible">+ Chocolate (delivery reveal)</li>
+      <li class="visible">+ Mrs. Chen's first deal</li>
+      <li class="visible">+ Corkboard materializes (2x2)</li>
+      <li class="hidden">Strawberry</li>
+      <li class="hidden">Mint chip</li>
+      <li class="hidden">Back room</li>
+      <li class="hidden">Tools</li>
+    </ul>
+  </div>
+  <div class="progress-card">
+    <h4>Days 12-30</h4>
+    <ul>
+      <li class="visible">+ Strawberry (Agnes)</li>
+      <li class="visible">+ Mint chip (Zosia buzz)</li>
+      <li class="visible">+ Back room opens ($800)</li>
+      <li class="visible">+ Journal on desk</li>
+      <li class="visible">+ Caliper discovered (drawer)</li>
+      <li class="hidden">Spring, Magnifier</li>
+      <li class="hidden">Barometer</li>
+      <li class="hidden">Nadia</li>
+    </ul>
+  </div>
+  <div class="progress-card">
+    <h4>Days 30-60</h4>
+    <ul>
+      <li class="visible">+ Spring ($3,000)</li>
+      <li class="visible">+ Magnifier ($7,000)</li>
+      <li class="visible">+ Barometer ($15,000)</li>
+      <li class="visible">+ Rho Dial ($10,000)</li>
+      <li class="visible">+ Nadia's A-frame sign</li>
+      <li class="visible">+ Kazik's compound deals</li>
+      <li class="visible">+ Corkboard grows to 2x4</li>
+      <li class="visible">+ Supplier board appears</li>
+    </ul>
+  </div>
+  <div class="progress-card">
+    <h4>Days 60-90</h4>
+    <ul>
+      <li class="visible">+ Standing order punch cards</li>
+      <li class="visible">+ Calculator fully operational</li>
+      <li class="visible">+ Corkboard grows to 3x4</li>
+      <li class="visible">+ Standing orders strip</li>
+      <li class="visible">ALL elements visible</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+function showScene(id) {
+  document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('scene-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>

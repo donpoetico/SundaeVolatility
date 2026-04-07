@@ -31,3 +31,11 @@ doctor:
 # Check repository health
 way:
     wai way
+
+# Serve design proofs on localhost:8080
+design-proofs port="8080":
+    @echo "Serving design proofs at http://localhost:{{port}}"
+    @echo "  → color-palette.html"
+    @echo "  → scene-layout.html"
+    @echo "  → concept-art-briefs.md"
+    python3 -m http.server {{port}} --directory design-proofs

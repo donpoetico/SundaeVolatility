@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sundae Volatility — Color Palette Proof</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Georgia', serif; background: #1a1a1a; color: #e0d8c8; padding: 2rem; }
+  h1 { font-size: 1.8rem; margin-bottom: 0.5rem; color: #FFE082; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 1rem; color: #D4A855; border-bottom: 1px solid #3a3228; padding-bottom: 0.5rem; }
+  h3 { font-size: 1rem; margin: 1.5rem 0 0.75rem; color: #B8860B; }
+  p.note { font-size: 0.85rem; color: #8a7e6a; margin-bottom: 2rem; font-style: italic; }
+
+  .palette-row {
+    display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.5rem;
+  }
+  .swatch {
+    width: 120px; border-radius: 8px; overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  }
+  .swatch-color {
+    height: 80px; position: relative;
+  }
+  .swatch-label {
+    padding: 0.5rem; background: #2a2520; font-size: 0.75rem;
+  }
+  .swatch-label .name { font-weight: bold; display: block; margin-bottom: 2px; }
+  .swatch-label .hex { color: #8a7e6a; font-family: monospace; font-size: 0.7rem; }
+
+  /* Lighting phase demo */
+  .lighting-demo {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 2rem;
+  }
+  .phase-card {
+    border-radius: 12px; overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+  }
+  .phase-header {
+    padding: 0.75rem 1rem; font-weight: bold; font-size: 0.9rem;
+  }
+  .phase-scene {
+    padding: 1.5rem; min-height: 280px; position: relative;
+  }
+  .phase-scene .layer {
+    border-radius: 6px; padding: 0.75rem; margin-bottom: 0.5rem;
+    font-size: 0.75rem; text-align: center;
+  }
+
+  /* Document types */
+  .doc-row {
+    display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem;
+  }
+  .doc-card {
+    width: 160px; border-radius: 8px; padding: 1rem;
+    position: relative; box-shadow: 0 3px 12px rgba(0,0,0,0.4);
+  }
+  .doc-card .stamp {
+    position: absolute; top: 8px; right: 8px;
+    font-size: 0.6rem; font-weight: bold; padding: 2px 6px;
+    border-radius: 3px; transform: rotate(3deg);
+  }
+  .doc-card .pin {
+    width: 14px; height: 14px; border-radius: 50%;
+    position: absolute; top: -7px; left: 50%; margin-left: -7px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+  }
+  .doc-card .label { font-size: 0.75rem; font-weight: bold; margin-bottom: 4px; }
+  .doc-card .desc { font-size: 0.65rem; color: rgba(0,0,0,0.6); }
+
+  /* Depth demo */
+  .depth-demo {
+    position: relative; width: 100%; max-width: 800px;
+    height: 400px; border-radius: 12px; overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+    margin-bottom: 2rem;
+  }
+  .depth-bg {
+    position: absolute; top: 0; left: 0; right: 0; height: 50%;
+  }
+  .depth-mid {
+    position: absolute; top: 50%; left: 0; right: 0; height: 17%;
+  }
+  .depth-fg {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 33%;
+  }
+  .depth-label {
+    position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+    font-size: 0.7rem; background: rgba(0,0,0,0.5); padding: 4px 8px;
+    border-radius: 4px; color: #fff;
+  }
+
+  /* Character palette */
+  .char-row {
+    display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem;
+  }
+  .char-card {
+    width: 140px; border-radius: 8px; overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  }
+  .char-colors {
+    display: flex; height: 60px;
+  }
+  .char-colors > div { flex: 1; }
+  .char-label {
+    padding: 0.5rem; background: #2a2520; font-size: 0.75rem; text-align: center;
+  }
+
+  /* Expression demo */
+  .expr-row {
+    display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1.5rem;
+  }
+  .expr-card {
+    text-align: center; width: 80px;
+  }
+  .expr-face {
+    width: 64px; height: 64px; border-radius: 50%;
+    margin: 0 auto 0.5rem; display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; background: #FFF8E7; box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  .expr-card .name { font-size: 0.7rem; }
+</style>
+</head>
+<body>
+
+<h1>Sundae Volatility — Color Palette Proof</h1>
+<p class="note">All hex values are directional. Review under all three lighting phases before locking. Print this page or screenshot for swatch comparison.</p>
+
+<h2>Interior Palette (base — does not change with weather/season)</h2>
+
+<h3>Primary Surfaces — Wood</h3>
+<div class="palette-row">
+  <div class="swatch"><div class="swatch-color" style="background:#5C3D1A"></div><div class="swatch-label"><span class="name">Dark Wood</span><span class="hex">#5C3D1A</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#8B6914"></div><div class="swatch-label"><span class="name">Warm Brown</span><span class="hex">#8B6914</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#A67C2E"></div><div class="swatch-label"><span class="name">Medium Wood</span><span class="hex">#A67C2E</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#D4A855"></div><div class="swatch-label"><span class="name">Light Wood</span><span class="hex">#D4A855</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#FFF8E7"></div><div class="swatch-label"><span class="name">Cream Wall</span><span class="hex">#FFF8E7</span></div></div>
+</div>
+
+<h3>Accent Metals — Brass & Copper</h3>
+<div class="palette-row">
+  <div class="swatch"><div class="swatch-color" style="background:#6B4F1D"></div><div class="swatch-label"><span class="name">Dark Brass</span><span class="hex">#6B4F1D</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#B8860B"></div><div class="swatch-label"><span class="name">Brass</span><span class="hex">#B8860B</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#CD853F"></div><div class="swatch-label"><span class="name">Copper</span><span class="hex">#CD853F</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#FFD54F"></div><div class="swatch-label"><span class="name">Focus Ring</span><span class="hex">#FFD54F</span></div></div>
+</div>
+
+<h3>Paper Tones</h3>
+<div class="palette-row">
+  <div class="swatch"><div class="swatch-color" style="background:#FFFDD0"></div><div class="swatch-label"><span class="name">Cream Paper</span><span class="hex">#FFFDD0</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#E8E4D8"></div><div class="swatch-label"><span class="name">Newsprint</span><span class="hex">#E8E4D8</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#DEB887"></div><div class="swatch-label"><span class="name">Cork</span><span class="hex">#DEB887</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#D2B48C"></div><div class="swatch-label"><span class="name">Manila</span><span class="hex">#D2B48C</span></div></div>
+</div>
+
+<h3>Text & Ink</h3>
+<div class="palette-row">
+  <div class="swatch"><div class="swatch-color" style="background:#3E2723"></div><div class="swatch-label"><span class="name">Brown Ink</span><span class="hex">#3E2723</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#C62828"></div><div class="swatch-label"><span class="name">Red Stamp</span><span class="hex">#C62828</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#6A1B9A"></div><div class="swatch-label"><span class="name">Purple Stamp</span><span class="hex">#6A1B9A</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#2E7D32"></div><div class="swatch-label"><span class="name">Green Stamp</span><span class="hex">#2E7D32</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#1565C0"></div><div class="swatch-label"><span class="name">Blue Pen</span><span class="hex">#1565C0</span></div></div>
+</div>
+
+<h2>Exterior / Window Palette</h2>
+<div class="palette-row">
+  <div class="swatch"><div class="swatch-color" style="background:#B0BEC5"></div><div class="swatch-label"><span class="name">Morning Sky</span><span class="hex">#B0BEC5</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#78909C"></div><div class="swatch-label"><span class="name">Morning Mist</span><span class="hex">#78909C</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#FFE082"></div><div class="swatch-label"><span class="name">Midday Gold</span><span class="hex">#FFE082</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#FFF9C4"></div><div class="swatch-label"><span class="name">Midday Light</span><span class="hex">#FFF9C4</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#FF8F00"></div><div class="swatch-label"><span class="name">Evening Amber</span><span class="hex">#FF8F00</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#E65100"></div><div class="swatch-label"><span class="name">Evening Deep</span><span class="hex">#E65100</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#455A64"></div><div class="swatch-label"><span class="name">Storm Dark</span><span class="hex">#455A64</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#37474F"></div><div class="swatch-label"><span class="name">Storm Deep</span><span class="hex">#37474F</span></div></div>
+</div>
+
+<h2>Lighting Phase Simulation</h2>
+<p class="note">Each card simulates the shop interior under a different time-of-day lighting overlay. Check that all three phases feel distinct but the base palette reads as warm and consistent.</p>
+
+<div class="lighting-demo">
+  <!-- Morning -->
+  <div class="phase-card">
+    <div class="phase-header" style="background:#78909C; color:#FFF8E7;">Morning — Cool Wash</div>
+    <div class="phase-scene" style="background: linear-gradient(to bottom, #9CAEB8 0%, #9CAEB8 50%, #D8CEBC 50%, #D8CEBC 67%, #7A6530 67%, #7A6530 100%);">
+      <div style="filter: sepia(0.05) saturate(0.85) brightness(0.95);">
+        <div class="layer" style="background:rgba(176,190,197,0.3); color:#3E2723;">Window — cool blue-gray light</div>
+        <div class="layer" style="background:rgba(222,184,135,0.5); color:#3E2723;">Cork / Shelf — muted</div>
+        <div class="layer" style="background:rgba(139,105,20,0.7); color:#FFF8E7;">Counter — warm wood (slightly cool)</div>
+        <div class="layer" style="background:rgba(184,134,11,0.8); color:#FFF8E7;">Register — brass (cool gleam)</div>
+        <div class="layer" style="background:rgba(255,253,208,0.9); color:#3E2723;">Paper — cream (neutral)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Midday -->
+  <div class="phase-card">
+    <div class="phase-header" style="background:#FFE082; color:#3E2723;">Midday — Warm Bright</div>
+    <div class="phase-scene" style="background: linear-gradient(to bottom, #FFE8A0 0%, #FFE8A0 50%, #EDE0C8 50%, #EDE0C8 67%, #8B6914 67%, #8B6914 100%);">
+      <div style="filter: sepia(0.08) saturate(1.05) brightness(1.02);">
+        <div class="layer" style="background:rgba(255,224,130,0.4); color:#3E2723;">Window — golden sunlight</div>
+        <div class="layer" style="background:rgba(222,184,135,0.6); color:#3E2723;">Cork / Shelf — warm</div>
+        <div class="layer" style="background:rgba(139,105,20,0.8); color:#FFF8E7;">Counter — rich warm wood</div>
+        <div class="layer" style="background:rgba(184,134,11,0.9); color:#FFF8E7;">Register — warm brass glow</div>
+        <div class="layer" style="background:rgba(255,253,208,0.95); color:#3E2723;">Paper — warm cream</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Evening -->
+  <div class="phase-card">
+    <div class="phase-header" style="background:#FF8F00; color:#FFF8E7;">Evening — Deep Amber</div>
+    <div class="phase-scene" style="background: linear-gradient(to bottom, #C06800 0%, #C06800 50%, #C8A878 50%, #C8A878 67%, #6B4F10 67%, #6B4F10 100%);">
+      <div style="filter: sepia(0.2) saturate(1.1) brightness(0.88);">
+        <div class="layer" style="background:rgba(255,143,0,0.35); color:#FFF8E7;">Window — deep amber sunset</div>
+        <div class="layer" style="background:rgba(200,160,100,0.5); color:#3E2723;">Cork / Shelf — amber-tinted</div>
+        <div class="layer" style="background:rgba(107,79,16,0.8); color:#FFD54F;">Counter — deep warm wood</div>
+        <div class="layer" style="background:rgba(160,115,10,0.9); color:#FFD54F;">Register — golden brass</div>
+        <div class="layer" style="background:rgba(240,230,190,0.9); color:#3E2723;">Paper — warm amber cream</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2>Document Type Color Coding</h2>
+<p class="note">Each document type must be instantly distinguishable by paper color, stamp, and pin color — even without reading text.</p>
+
+<div class="doc-row">
+  <div class="doc-card" style="background:#FFFDD0; color:#3E2723;">
+    <div class="pin" style="background:#C62828;"></div>
+    <div class="stamp" style="background:#C62828; color:white;">ORDER</div>
+    <div class="label">Forward (Mrs. Chen)</div>
+    <div class="desc">Cream cardstock<br>Red stamp, red pin<br>Neat organized print</div>
+  </div>
+  <div class="doc-card" style="background:#BBDEFB; color:#1a237e;">
+    <div class="pin" style="background:#1565C0;"></div>
+    <div class="stamp" style="background:#6A1B9A; color:white;">RESERVATION</div>
+    <div class="label">Reservation (Dmitri)</div>
+    <div class="desc">Light blue card<br>Purple stamp, blue pin<br>Shaky cautious script</div>
+  </div>
+  <div class="doc-card" style="background:#C8B896; color:#33691E;">
+    <div class="pin" style="background:#2E7D32;"></div>
+    <div class="stamp" style="background:#2E7D32; color:white;">GUARANTEE</div>
+    <div class="label">Guarantee (Agnes)</div>
+    <div class="desc">Earthy textured<br>Green stamp, green pin<br>Hurried messy script</div>
+  </div>
+  <div class="doc-card" style="background:#D2B48C; color:#3E2723;">
+    <div class="pin" style="background:#B8860B;"></div>
+    <div class="stamp" style="background:#8B6914; color:#FFF8E7;">K</div>
+    <div class="label">Compound (Kazik)</div>
+    <div class="desc">Thick manila<br>Wax seal, brass pin<br>Bold flourished script</div>
+  </div>
+</div>
+
+<h2>Character Signature Palettes</h2>
+<p class="note">Each character's color signature should be identifiable even as a small dot on the corkboard.</p>
+
+<div class="char-row">
+  <div class="char-card">
+    <div class="char-colors">
+      <div style="background:#6B8E5A"></div><div style="background:#A69060"></div><div style="background:#C8A882"></div>
+    </div>
+    <div class="char-label">Marta<br><span style="color:#8a7e6a; font-size:0.65rem;">Olive coat, warm neutrals</span></div>
+  </div>
+  <div class="char-card">
+    <div class="char-colors">
+      <div style="background:#1A3A5C"></div><div style="background:#F5F5F5"></div><div style="background:#37474F"></div>
+    </div>
+    <div class="char-label">Mrs. Chen<br><span style="color:#8a7e6a; font-size:0.65rem;">Navy blazer, crisp whites</span></div>
+  </div>
+  <div class="char-card">
+    <div class="char-colors">
+      <div style="background:#5D4037"></div><div style="background:#EFEBE9"></div><div style="background:#A1887F"></div>
+    </div>
+    <div class="char-label">Dmitri<br><span style="color:#8a7e6a; font-size:0.65rem;">Brown apron, flour whites</span></div>
+  </div>
+  <div class="char-card">
+    <div class="char-colors">
+      <div style="background:#6D4C2E"></div><div style="background:#8BC34A"></div><div style="background:#C9A96E"></div>
+    </div>
+    <div class="char-label">Agnes<br><span style="color:#8a7e6a; font-size:0.65rem;">Earth tones, green accents</span></div>
+  </div>
+  <div class="char-card">
+    <div class="char-colors">
+      <div style="background:#4A2810"></div><div style="background:#B8860B"></div><div style="background:#8B0000"></div>
+    </div>
+    <div class="char-label">Uncle Kazik<br><span style="color:#8a7e6a; font-size:0.65rem;">Dark coat, gold, burgundy</span></div>
+  </div>
+  <div class="char-card">
+    <div class="char-colors">
+      <div style="background:#795548"></div><div style="background:#BCAAA4"></div><div style="background:#D7CCC8"></div>
+    </div>
+    <div class="char-label">Tomek<br><span style="color:#8a7e6a; font-size:0.65rem;">Warm browns, soft grays</span></div>
+  </div>
+  <div class="char-card">
+    <div class="char-colors">
+      <div style="background:#FF7043"></div><div style="background:#FFE0B2"></div><div style="background:#4DB6AC"></div>
+    </div>
+    <div class="char-label">Zosia<br><span style="color:#8a7e6a; font-size:0.65rem;">Bright, energetic, teal accent</span></div>
+  </div>
+  <div class="char-card">
+    <div class="char-colors">
+      <div style="background:#90A4AE"></div><div style="background:#ECEFF1"></div><div style="background:#B3E5FC"></div>
+    </div>
+    <div class="char-label">Nadia<br><span style="color:#8a7e6a; font-size:0.65rem;">Cool grays, ice blue — rival</span></div>
+  </div>
+</div>
+
+<h2>Customer Expression Colors</h2>
+<div class="expr-row">
+  <div class="expr-card">
+    <div class="expr-face">😊</div>
+    <div class="name">Smiling<br><span style="color:#8a7e6a;">Fair price</span></div>
+  </div>
+  <div class="expr-card">
+    <div class="expr-face">😐</div>
+    <div class="name">Neutral<br><span style="color:#8a7e6a;">Acceptable</span></div>
+  </div>
+  <div class="expr-card">
+    <div class="expr-face">😟</div>
+    <div class="name">Frowning<br><span style="color:#8a7e6a;">Too expensive</span></div>
+  </div>
+  <div class="expr-card">
+    <div class="expr-face">😍</div>
+    <div class="name">Heart-eyes<br><span style="color:#8a7e6a;">Underpriced!</span></div>
+  </div>
+</div>
+
+<h2>Flavor Colors (Ice Cream)</h2>
+<div class="palette-row">
+  <div class="swatch"><div class="swatch-color" style="background:#FFF9C4"></div><div class="swatch-label"><span class="name">Vanilla</span><span class="hex">#FFF9C4</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#5D4037"></div><div class="swatch-label"><span class="name">Chocolate</span><span class="hex">#5D4037</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#EF5350"></div><div class="swatch-label"><span class="name">Strawberry</span><span class="hex">#EF5350</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#80CBC4"></div><div class="swatch-label"><span class="name">Mint Chip</span><span class="hex">#80CBC4</span></div></div>
+</div>
+
+<h2>UI State Colors</h2>
+<div class="palette-row">
+  <div class="swatch"><div class="swatch-color" style="background:#4CAF50"></div><div class="swatch-label"><span class="name">Profit / Good</span><span class="hex">#4CAF50</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#FFA726"></div><div class="swatch-label"><span class="name">Warning / Amber</span><span class="hex">#FFA726</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#EF5350"></div><div class="swatch-label"><span class="name">Danger / Urgent</span><span class="hex">#EF5350</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#FFD54F"></div><div class="swatch-label"><span class="name">Focus / Highlight</span><span class="hex">#FFD54F</span></div></div>
+</div>
+
+</body>
+</html>
