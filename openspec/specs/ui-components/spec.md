@@ -34,20 +34,23 @@ Deal slips SHALL have unique visual styles corresponding to the character tier a
 - **WHEN** the player adjusts the price on a deal slip
 - **THEN** the original price is crossed out with a line and a new price appears beside it in Grandfather's Hand font, styled as a handwritten correction.
 
-### Requirement: Instrumental Tools
-Financial analysis tools (Caliper, Spring, Magnifier, Barometer, Rho Dial) SHALL be represented as physical objects. The Caliper, Spring, Magnifier, and Rho Dial SHALL clip onto deal slips via drag-and-drop from the tool tray. The Barometer SHALL be wall-mounted in the back room and cannot be attached to individual slips — it shows a global reading. The Rho Dial resides on Grandfather's desk and shows global interest rate changes via its needle position; when attached to a deal slip, it shows how much that specific deal's value changes with the cost of borrowing. When tools are attached to slips, they SHALL display continuous animated readings: the Caliper's gears spin at a rate proportional to delta, the Spring vibrates with amplitude proportional to gamma, the Magnifier reveals paper degradation with a drip counter showing daily value loss, and the Rho Dial's needle indicates the deal's rate sensitivity.
+### Requirement: Attachable Analysis Tools
+Financial analysis tools (Caliper, Spring, Magnifier, Rho Dial) SHALL be represented as physical objects that clip onto deal slips via drag-and-drop from the tool tray. When attached to slips, they SHALL display continuous animated readings: the Caliper's gears spin at a rate proportional to delta, the Spring vibrates with amplitude proportional to gamma, the Magnifier reveals paper degradation with a drip counter showing daily value loss, and the Rho Dial's needle indicates the deal's rate sensitivity.
 
 #### Scenario: Attach Caliper
 - **WHEN** the player drops the brass caliper onto a deal slip
 - **THEN** the caliper snaps into position on the slip's edge with a satisfying click, and its gears spin at a rate proportional to the delta value.
 
-#### Scenario: Check the Barometer
-- **WHEN** the player walks to the back room and views the barometer
-- **THEN** the wall-mounted pressure gauge shows a needle in the green, amber, or red zone with continuous trembling proportional to overall market volatility. The barometer cannot be picked up or attached to slips.
-
 #### Scenario: Incompatible tool conflict
 - **WHEN** the player drops a tool onto a slip that already has an incompatible tool attached
 - **THEN** the existing tool auto-detaches and returns to the desk tool tray with a soft clink sound, and the new tool attaches in its place.
+
+### Requirement: Wall-Mounted Instruments
+The Barometer SHALL be wall-mounted in the back room and cannot be attached to individual slips — it shows a global market volatility reading. The Rho Dial SHALL reside on Grandfather's desk and show global interest rate changes via its needle position. Wall-mounted instruments provide ambient, always-visible information rather than per-contract analysis.
+
+#### Scenario: Check the Barometer
+- **WHEN** the player walks to the back room and views the barometer
+- **THEN** the wall-mounted pressure gauge shows a needle in the green, amber, or red zone with continuous trembling proportional to overall market volatility. The barometer cannot be picked up or attached to slips.
 
 ### Requirement: Document Design System
 All in-game documents SHALL follow a tiered design system where contract type is communicated through paper color, stamp design, pin color, handwriting style, and physical size. The player MUST be able to distinguish document types at a glance on the corkboard by visual properties alone, without reading text. The tiers are: Tier 2 forwards (cream cardstock, red "ORDER" stamp, red pin), Tier 3a reservations (light blue card, purple "RESERVATION" stamp, blue pin), Tier 3b guarantees (earthy textured paper, green "GUARANTEE" stamp with leaf motif, green pin), and Tier 4 compound deals (thick manila, wax "K" seal, brass pin, folded multi-part with paper clip).

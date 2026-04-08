@@ -4,7 +4,7 @@
 Manages game-specific rules, progression, and trade validation, ensuring player actions adhere to the economic model and unlocking systems.
 ## Requirements
 ### Requirement: Trade Execution
-The system SHALL support opening and closing positions in European options for four distinct ice cream flavors.
+The system SHALL support opening and closing derivative contracts — including forward contracts, call options, and put options — for four distinct ice cream flavors.
 
 #### Scenario: Buy a Call Option
 - **WHEN** a player executes a buy order for a "Vanilla" call option
@@ -88,6 +88,41 @@ The system SHALL evaluate progression milestones using specific provisional reve
 - **Workshop:** Balance ≥ $15,000 AND ≥ 8 deals.
 
 #### Scenario: Unlock Chocolate
-- **WHEN** player has $600 and served 20 customers
+- **WHEN** player revenue reaches $500 and customer count reaches 15
 - **THEN** the Chocolate flavor is unlocked for purchase.
+
+### Requirement: Counterparty Behavioral Parameters
+The game logic SHALL model market counterparties using behavioral parameters: Risk Tolerance, Price Sensitivity, Information Quality, and Max Counter-Offer Delta. Each named character SHALL have fixed parameter values that determine their deal proposals and negotiation behavior.
+
+#### Scenario: Zosia's Information Edge
+- **WHEN** Zosia proposes a deal
+- **THEN** her Information Quality (0.65) informs the strike price relative to the internal GBM drift.
+
+### Requirement: Economic Pacing Goals
+The system SHALL track progress against three act-based revenue goals (register balance inclusive of starting capital).
+- **Act 1 (Survival):** Reach $8,000 to renovate the back room.
+- **Act 2 (Growth):** Reach $30,000 to unlock the workshop.
+- **Act 3 (Mastery):** Reach $70,000 register balance to save the shop.
+
+#### Scenario: Saving the Shop
+- **WHEN** Day 90 ends and register balance is $75,000
+- **THEN** the system triggers the "Full Success" outcome tier.
+
+### Requirement: Outcome Tiers
+The system SHALL evaluate campaign success into three tiers (Full Success, Partial Success, Failure).
+- **Full ($70k+):** Shop saved, credits roll.
+- **Partial ($50k–$69k):** Debt not cleared, New Game+ unlocked.
+- **Failure (<$50k):** Shop sold, knowledge remains, New Game+ unlocked.
+
+#### Scenario: Bitter-Sweet Failure
+- **WHEN** Day 90 ends and register balance is $45,000
+- **THEN** the "Failure" cutscene triggers and New Game+ options are unlocked.
+
+### Requirement: Non-Linear Campaign Scaling
+The system SHALL scale revenue thresholds and day-based triggers using the campaign length multiplier heuristic.
+- **Formula:** `Threshold_New = Threshold_Base * Multiplier^0.8`
+
+#### Scenario: Shortened Campaign
+- **GIVEN** a 60-day campaign (Multiplier = 0.67)
+- **THEN** the Act 1 goal ($8,000) is scaled down to approximately $5,700.
 

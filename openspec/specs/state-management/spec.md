@@ -31,31 +31,21 @@ The state management system SHALL handle the serialization and deserialization o
 - **WHEN** the game is saved
 - **THEN** all unlocked Greeks (stored in a `Set`) are preserved and successfully re-hydrated.
 
-### Requirement: Economic Pacing Goals
-The system SHALL track progress against three act-based revenue goals (register balance inclusive of starting capital).
-- **Act 1 (Survival):** Reach $8,000 to renovate the back room.
-- **Act 2 (Growth):** Reach $30,000 to unlock the workshop.
-- **Act 3 (Mastery):** Reach $70,000 register balance to save the shop.
+### Requirement: State Schema Migration
+The state management system SHALL detect schema version mismatches on load and apply forward migrations to upgrade saved state to the current schema. If migration fails, the system SHALL fall back to a clean initial state and log the migration error.
 
-#### Scenario: Saving the Shop
-- **WHEN** Day 90 ends and register balance is $75,000
-- **THEN** the system triggers the "Full Success" outcome tier.
+#### Scenario: Schema version upgrade
+- **WHEN** a saved game with schema version 1 is loaded by an application expecting schema version 2
+- **THEN** the migration pipeline transforms the state to version 2 format and the game resumes with all prior progress intact.
 
-### Requirement: Outcome Tiers
-The system SHALL evaluate campaign success into three tiers (Full Success, Partial Success, Failure).
-- **Full ($70k+):** Shop saved, credits roll.
-- **Partial ($50k–$69k):** Debt not cleared, New Game+ unlocked.
-- **Failure (<$50k):** Shop sold, knowledge remains, New Game+ unlocked.
+#### Scenario: Migration failure fallback
+- **WHEN** a migration step fails due to corrupt or incompatible data
+- **THEN** the system starts a fresh game with default initial state and logs the error for debugging.
 
-#### Scenario: Bitter-Sweet Failure
-- **WHEN** Day 90 ends and register balance is $45,000
-- **THEN** the "Failure" cutscene triggers and New Game+ options are unlocked.
+### Requirement: New Game Plus State
+The state management system SHALL support a New Game+ mode that resets progression state while preserving specified player knowledge. Unlocked tools, discovered recipes, and journal entries SHALL carry over. Capital, inventory, and active contracts SHALL reset to initial values.
 
-### Requirement: Non-Linear Campaign Scaling
-The system SHALL scale revenue thresholds and day-based triggers using the campaign length multiplier heuristic.
-- **Formula:** `Threshold_New = Threshold_Base * Multiplier^0.8`
-
-#### Scenario: Shortened Campaign
-- **GIVEN** a 60-day campaign (Multiplier = 0.67)
-- **THEN** the Act 1 goal ($8,000) is scaled down to approximately $5,700.
+#### Scenario: Start New Game Plus
+- **WHEN** the player starts New Game+ after a Partial Success or Failure outcome
+- **THEN** the store resets capital to the starting amount, clears all inventory and contracts, but retains the set of unlocked tools and journal entries from the previous run.
 

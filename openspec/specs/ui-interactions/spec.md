@@ -101,10 +101,10 @@ All color-coded visual information SHALL have a redundant non-color indicator. D
 ### Requirement: Animation Priority Tiers
 All animations SHALL be categorized into three priority tiers. Must-have animations (required for MVP) SHALL include: scoop-and-serve (~1s), register ring with flip-digits (~0.5s), slip placement on counter (~0.5s), slip pin to corkboard with bounce (~0.3s), slip decline/slide back (~0.5s), newspaper slide under door (~1s), day phase lighting crossfade (~2s), customer enter/exit with bell (~1s), price tag wheel rotation (continuous), camera pan between scenes (~1.5s), tool pick-up/put-down (~0.3s), tool attach to slip (~0.3s), and corkboard lean-in/lean-back (~0.5s). Important animations (post-MVP) SHALL include corkboard expansion, back room reveal, container unlock transition, caliper discovery, slip settlement flutter, slip tear-up, calculator processing, newspaper unfold, idle character loops, and compound deal unfold. Polish animations (nice-to-have) SHALL include dust motes, counter-offer handwriting, wax seal break, page turn, and barometer steam.
 
-#### Scenario: MVP interaction feels complete
-- **WHEN** playing the game with only must-have animations implemented
-- **THEN** every core interaction (serving, dealing, tool use, navigation) has visual feedback — no action produces a static, unanimated result.
+#### Scenario: Must-have animations present at MVP
+- **WHEN** all must-have tier animations are implemented
+- **THEN** every core player action (serve, ring register, pin slip, decline slip, navigate rooms, attach tool, adjust price, lean into corkboard) produces immediate visual feedback — no action results in an instant state change without animation.
 
-#### Scenario: Post-MVP polish adds delight
-- **WHEN** important and polish animations are added incrementally
-- **THEN** each addition enhances feel and immersion without changing gameplay behavior — they are layered on top of functioning must-have animations.
+#### Scenario: Graceful degradation without polish tier
+- **WHEN** polish-tier animations are not yet implemented
+- **THEN** all gameplay information remains accessible and all interactions function correctly — polish animations add delight but are not required for comprehension or usability.

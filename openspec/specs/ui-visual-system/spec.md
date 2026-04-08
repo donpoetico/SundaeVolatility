@@ -79,7 +79,7 @@ All surfaces (wood, brass, paper, glass, cork) SHALL be rendered with visible te
 - **THEN** they see warm wood grain, scratches, and patina rendered at foreground detail level with 3-4px outlines — the sharpest, most textured surface in the scene.
 
 ### Requirement: Time-of-Day Lighting
-The ambient lighting SHALL transition between three phases using a three-tier system: a LUT color grading shader on the root container for primary color temperature, a multiply-blend overlay sprite for scene-wide tint (morning: cool wash RGBA ~180,200,230,0.08; midday: warm neutral RGBA ~255,245,220,0.05; evening: deep amber RGBA ~255,180,100,0.12), and per-layer tint adjustments where the window backdrop receives a stronger shift and interior layers a subtler shift. Transitions between phases SHALL be smooth crossfades lasting approximately 2 seconds.
+The ambient lighting SHALL transition between three phases using a three-tier system: a LUT color grading shader on the root container for primary color temperature, a multiply-blend overlay sprite for scene-wide tint (morning: cool blue-gray wash at low opacity; midday: warm neutral at minimal opacity; evening: deep amber at moderate opacity), and per-layer tint adjustments where the window backdrop receives a stronger shift and interior layers a subtler shift. Transitions between phases SHALL be smooth crossfades lasting approximately 2 seconds.
 
 #### Scenario: End of day transition
 - **WHEN** the game shifts to the evening phase

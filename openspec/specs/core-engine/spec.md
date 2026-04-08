@@ -56,10 +56,28 @@ The core engine SHALL generate N configurable paths (default 1000) for forward-l
 - **WHEN** the player runs a scenario on a deal slip
 - **THEN** the engine returns p5, p95, mean, and max loss/gain statistics.
 
-### Requirement: Detailed Agent Parameters
-The engine SHALL model market counterparties using behavioral parameters: Risk Tolerance, Price Sensitivity, Information Quality, and Max Counter-Offer Delta.
+### Requirement: Price Model Composition
+The core engine SHALL compose the price model in the following order: GBM provides the base random walk, the O-U process modifies the GBM drift toward the seasonal baseline, the sinusoidal seasonal modifier adjusts the baseline target, and Merton jump diffusion applies independently as a multiplicative shock after the drift-adjusted step.
 
-#### Scenario: Zosia's Information Edge
-- **WHEN** Zosia proposes a deal
-- **THEN** her Information Quality (0.65) informs the strike price relative to the internal GBM drift.
+#### Scenario: Composition order
+- **WHEN** a simulation tick executes
+- **THEN** the engine applies seasonal baseline calculation, O-U drift adjustment toward that baseline, GBM step with adjusted drift, and then Merton jump sampling — in that order.
+
+### Requirement: Numerical Stability
+The core engine SHALL handle edge cases in Black-Scholes inputs without producing NaN, Infinity, or negative prices. At zero volatility, option price SHALL equal the discounted intrinsic value. At zero time-to-expiry, Greeks SHALL return their limit values (Delta approaches 0 or 1, Gamma/Vega/Theta approach 0). At extreme spot/strike ratios (>10x or <0.1x), the engine SHALL clamp intermediate calculations to prevent overflow.
+
+#### Scenario: Zero volatility pricing
+- **WHEN** volatility is 0 and spot is $3.00 with strike $2.50 for a call
+- **THEN** the engine returns the discounted intrinsic value ($0.50 × discount factor) without NaN or errors.
+
+#### Scenario: Greeks at expiry
+- **WHEN** time-to-expiry is 0 for an at-the-money option
+- **THEN** Delta returns 0.5, and Gamma, Vega, and Theta return 0.
+
+### Requirement: Simulation Time Step
+The core engine SHALL define a configurable simulation time step that maps game-time to financial-time. One game day SHALL correspond to one calendar day (1/365 of a year) for Black-Scholes time parameters. Intra-day phases (morning, midday, evening) SHALL each represent one-third of a trading day for price evolution.
+
+#### Scenario: Daily price evolution
+- **WHEN** the simulation advances one full game day
+- **THEN** the GBM step uses dt = 1/365 for drift and diffusion calculations.
 

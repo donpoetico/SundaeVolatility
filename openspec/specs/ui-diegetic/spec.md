@@ -87,7 +87,7 @@ Characters SHALL appear in front of the counter, framed against the window, in u
 - **THEN** Mrs. Chen takes the primary center position and the walk-ins shift to secondary and tertiary positions.
 
 ### Requirement: Corkboard Lean-In View
-The corkboard SHALL support a diegetic "lean-in" camera movement for detailed inspection. When the player clicks any deal slip or the corkboard background, the camera SHALL smoothly push toward the corkboard while other scene elements blur and dim but remain partially visible. In the lean-in view, deal slips SHALL expand to approximately 200x280px (desktop) or 240x320px (tablet) showing full text details. Attached tools SHALL be visible and animated. The player SHALL exit the lean-in view by clicking empty space or pressing Escape, returning the camera to the full shop view. The lean-in view also activates automatically during the cross-room tool flow (see ui-interactions: Cross-Room Tool Flow).
+The corkboard SHALL support a diegetic "lean-in" camera movement for detailed inspection. When the player clicks any deal slip or the corkboard background, the camera SHALL smoothly push toward the corkboard while other scene elements blur and dim but remain partially visible. In the lean-in view, deal slips SHALL expand to fill approximately 15-20% of the viewport width, maintaining a 5:7 aspect ratio showing full text details. Attached tools SHALL be visible and animated. The player SHALL exit the lean-in view by clicking empty space or pressing Escape, returning the camera to the full shop view. The lean-in view also activates automatically during the cross-room tool flow (see ui-interactions: Cross-Room Tool Flow).
 
 #### Scenario: Inspect a deal slip
 - **WHEN** the player clicks a deal slip on the corkboard
