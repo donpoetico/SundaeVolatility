@@ -68,4 +68,14 @@ context before starting research or creating tickets.
 > check for known patterns. Do not rediscover what is already documented.
 <!-- WAI:REFLECT:REF:END -->
 
+## Ubiquitous Language
+
+Use `.wai/resources/ubiquitous-language/README.md` as the terminology source of truth.
+
+- Player-facing copy uses diegetic language: **promise**, **tool**, **weather**, **flavor**.
+- Code, tests, math, and internal specs may use technical finance terms directly.
+- Mixed-audience docs and tutorials should introduce the diegetic term first, then the technical term in parentheses on first mention.
+- Prefer canonical flavor naming in docs and specs: **Mint-Chip**.
+
+
 

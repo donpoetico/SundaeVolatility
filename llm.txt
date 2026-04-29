@@ -1,6 +1,6 @@
 # Sundae Volatility
 
-> Educational derivatives pricing game with incremental mechanics.
+> Educational derivatives pricing game with incremental mechanics and diegetic shop-language.
 
 ## Core Architecture
 - **Three-Layer Architecture**: Core engine, Game logic, UI.
@@ -10,14 +10,16 @@
 - **Math Engine**: Black-Scholes pricing and Greeks.
 
 ## Development Principles
-- **Diegetic Metaphor**: Options are "promises," Greeks are "tools."
-- **Invisible Simulation**: Finance terminology hidden from player.
+- **Diegetic Metaphor**: Player-facing language uses "promises," "tools," "weather," and "flavors."
+- **Mixed-Audience Rule**: Tutorials and docs introduce diegetic terms first, then technical labels in parentheses when needed.
+- **Invisible Simulation**: Finance terminology is hidden from the player until explicitly taught.
 - **TDD Mandatory**: All logic must be verified by tests.
 
 ## Key Files
-- `SUNDAE_VOLATILITY_UNIFIED_SPEC_v3_4.md`: Complete game specification.
+- `openspec/project.md`: Project conventions and architecture context.
+- `openspec/specs/`: Current capability specifications.
+- `.wai/resources/ubiquitous-language/README.md`: Shared language rules.
 - `src/contracts/agentContracts.ts`: Agent interface contracts.
-- `src/store/gameStore.ts`: Global state management.
 - `src/core/pricing/`: Pricing engine and Greeks.
 
 ## Agent Skills

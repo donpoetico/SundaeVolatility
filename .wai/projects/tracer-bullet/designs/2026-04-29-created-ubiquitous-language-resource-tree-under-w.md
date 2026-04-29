@@ -1,0 +1,1 @@
+Created ubiquitous language resource tree under .wai/resources/ubiquitous-language with a root index plus bounded contexts for core simulation/pricing, gameplay/progression, and player-facing diegetic UI. Canonicalized promise/tool/weather/flavor terminology and added translation/ambiguity rules so specs, code, and UI can share one vocabulary.

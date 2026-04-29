@@ -1,0 +1,1 @@
+Normalized agent-facing docs by adding a Ubiquitous Language section to CLAUDE.md and AGENTS.md. Agents are now explicitly directed to the shared glossary, mixed-audience translation rule, diegetic player-copy terms, and canonical Mint-Chip naming so internal assistant guidance stays aligned with README, OpenSpec, and the new language tree.
