@@ -13,12 +13,16 @@ When two terms exist, prefer the diegetic term for player-facing content and the
    - Say **promise**, not option.
    - Say **weather**, not volatility.
    - Say **tool**, not Greek.
+   - Say **Grandfather's method** or **the ledger** before any technical phrasing for the optional deep-inspection layer.
 2. **Code and math may use technical finance terms internally.**
    - `volatility`, `delta`, `callOption`, and `blackScholes` are acceptable in code.
-3. **Docs should translate across both worlds using explicit rules.**
+3. **Normal play teaches by consequences, not vocabulary.**
+   - Player-facing UI, archive stamps, tickets, journal notes, and default interactions SHOULD avoid technical jargon.
+   - Technical labels belong in mixed-audience docs, explicit lessons, or advanced inspection only.
+4. **Docs should translate across both worlds using explicit rules.**
    - Mixed-audience docs MUST use diegetic term first, then technical term on first mention, e.g. **promise (call option)**.
    - Purely internal code, tests, and math docs MAY use technical terms only.
-4. **Avoid synonyms for core concepts.**
+5. **Avoid synonyms for core concepts.**
    - Pick the canonical term from the tables below.
 
 ## How to Use This Tree
@@ -32,10 +36,11 @@ When two terms exist, prefer the diegetic term for player-facing content and the
 
 | Artifact type | Preferred language rule |
 |---|---|
-| Player-facing UI copy | Diegetic terms only unless the lesson explicitly introduces a technical term |
+| Player-facing UI copy | Diegetic terms only; do not require technical labels for normal play |
+| Player-facing archive stamps, tickets, journal notes | Diegetic terms only; teach through consequence and pattern language |
 | Internal code, tests, and math notes | Technical terms only |
 | Specs and implementation docs | Technical terms by default; use diegetic translation when discussing player experience |
-| Mixed-audience docs, tutorials, journal lessons, hover help | First mention MUST use diegetic term first, then technical label in parentheses |
+| Mixed-audience docs, tutorials, explicit lessons, advanced inspection | First mention MUST use diegetic term first, then technical label in parentheses |
 
 ### Mixed-Audience Pattern
 
@@ -105,6 +110,14 @@ Current repository documents include legacy **Mint Chip** usage. Normalize towar
 - **Day** means a campaign day unless otherwise qualified.
 - **Phase** means one of **Morning**, **Midday**, or **Evening**.
 - **Balance** means current register cash unless the text explicitly says revenue, profit, or net worth.
+
+## Additional Framing Terms
+
+| Player-facing term | Meaning |
+|---|---|
+| Grandfather's method | The optional deeper inspection layer for how a promise was judged |
+| Archive band | The resolved-promises strip near the main corkboard |
+| Good haul / Fair trade / Tight squeeze / Costly lesson | Example outcome-language for archived promises |
 
 ## Anti-Glossary
 

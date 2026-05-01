@@ -11,8 +11,11 @@
 
 ## Development Principles
 - **Diegetic Metaphor**: Player-facing language uses "promises," "tools," "weather," and "flavors."
+- **Learn By Doing First**: Players should discover patterns through consequences, comparison, and repeated use of artifacts before any deeper explanation.
+- **Behavioral Fidelity First**: The game validates the financial core by producing coherent outcomes in play, not by leading with technical panels.
+- **Layered Proof**: Slips, tools, calculator tickets, archive outcomes, and journal notes are the default proof surface; explicit audit is optional and framed as Grandfather's method.
 - **Mixed-Audience Rule**: Tutorials and docs introduce diegetic terms first, then technical labels in parentheses when needed.
-- **Invisible Simulation**: Finance terminology is hidden from the player until explicitly taught.
+- **Invisible Simulation**: Finance terminology is hidden from the player during normal play unless a lesson explicitly reveals it.
 - **TDD Mandatory**: All logic must be verified by tests.
 
 ## Key Files

@@ -11,9 +11,19 @@
 
 ## 🎮 What is Sundae Volatility?
 
-An incremental game that teaches derivatives pricing through engaging gameplay. Players inherit their Polish grandfather's ice cream shop and his mysterious trading system. To save the shop from foreclosure within 90 days, they must learn to price promises (options) and manage risk—all while experiencing the satisfying "numbers go up" loop.
+An incremental game that teaches derivatives pricing through engaging gameplay. Players inherit their Polish grandfather's ice cream shop and his mysterious trading system. To save the shop from foreclosure within 90 days, they must learn to price promises and manage risk—all while experiencing the satisfying "numbers go up" loop.
 
-**Core Innovation:** Knowledge costs money. Delta costs $500, Gamma costs $1,500, Vega costs $8,000. Every dollar spent understanding new tools (Greeks) is a dollar unavailable for trading, creating authentic capital-allocation decisions that teach both finance and business strategy.
+The game is also a **diegetic validation front** for the financial core. Player-facing play stays grounded in shop language and physical artifacts, while the underlying pricing and risk libraries remain the source of truth for every important consequence.
+
+**Core Innovation:** Knowledge costs money. Every dollar spent understanding a new tool is a dollar unavailable for trading, creating authentic capital-allocation decisions that teach both finance and business strategy.
+
+### UX Principles
+
+- **Learn by doing first** — players form hypotheses from weather, customer reactions, slips, stock condition, and outcomes before any deeper explanation.
+- **Behavioral fidelity over exposition** — the game proves the core by producing coherent consequences in play, not by leading with a technical dashboard.
+- **Diegetic surface, authentic engine** — the shop, corkboard, tools, tickets, and journal are the default interface to the math.
+- **Optional inspectability** — advanced players can inspect Grandfather's method more deeply, but that proof layer is never required for normal play.
+- **Memory matters** — the corkboard and journal preserve past judgments so players can compare today's promises against prior cases.
 
 ### Key Features
 
@@ -23,9 +33,9 @@ An incremental game that teaches derivatives pricing through engaging gameplay. 
   - Strawberry (seasonal, predictable patterns)
   - Mint-Chip (chaotic, sentiment-driven)
 
-- 📊 **Tools as Upgrades** - Unlock financial insights progressively
-  - Delta → Gamma → Theta → Vega → Rho
-  - Each tool changes how you inspect promises and manage the shop
+- 📊 **Tools as Upgrades** - Unlock new ways to inspect promises progressively
+  - New tools expand what the player can notice and compare
+  - The player learns the system through physical instruments, not mandatory jargon
 
 - 📖 **Rich Narrative** - Discover your grandfather's story through journal entries
   - Polish immigrant mathematician
@@ -37,6 +47,7 @@ An incremental game that teaches derivatives pricing through engaging gameplay. 
   - Quick trades, low cognitive load
   - Numbers go up satisfaction
   - Strategic purchasing prevents mindlessness
+  - Repeated patterns become intuition; contrasting cases create deeper insight
 
 ---
 
@@ -105,19 +116,19 @@ npm run dev
    - Tool unlock milestones
    - Campaign outcomes and pacing goals
 
-3. **[`gameplay-loop`](./openspec/specs/gameplay-loop/spec.md)** - Day phases and deal flow
+3. **[`gameplay-loop`](./openspec/specs/gameplay-loop/spec.md)** - Day phases, deal flow, and pattern learning
    - Morning / Midday / Evening structure
    - Walk-in customer behavior
-   - Counter-offers, newspaper, and weather mapping
+   - Counter-offers, newspaper, weather mapping, and selective comparison cues
 
 4. **[`ui-diegetic`](./openspec/specs/ui-diegetic/spec.md)** - Zero-HUD shop and back-room presentation
    - Spatial scene architecture
    - Progressive reveal of objects and spaces
-   - Diegetic information delivery
+   - Diegetic information delivery and layered proof
 
 5. **[`ui-components`](./openspec/specs/ui-components/spec.md)** and related UI specs
    - Physical objects and interactions
-   - Corkboard, tools, register, and documents
+   - Corkboard, tools, register, archive band, and documents
    - Visual-system and interaction rules
 
 ---
